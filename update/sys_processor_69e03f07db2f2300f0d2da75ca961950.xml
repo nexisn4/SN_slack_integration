@@ -12,22 +12,43 @@
         <require_csrf>false</require_csrf>
         <roles/>
         <script><![CDATA[(function process(g_request, g_response, g_processor) {
+	//simple test
+	g_processor.writeOutput("begin\n");
+	
+	//original initial setup - just logs
+// 	gs.info("slack slash command\nslack query string: " + g_request.getQueryString());
 
-	g_processor.writeOutput("hello world");
+	var urlParamList = g_request.getParameterNames();
+// 	var paramMsg = ""; //we're going to log parameter log here
+// 	for (var param in urlParamList){
+// 		gs.info("slack Parameter: ["+param+"] has a value of: "+param+"\n");
+// 	}
+	for (var i = 0; i < urlParamList.length; i++){
+		var param = urlParamList[i];
+		var value = g_request.getParameter(urlParamList[i]);
+		g_processor.writeOutput(param + ": " + value + "\n");
+	}
+	
+	
+	// Add your code here
+	g_response.setStatus(200);
+	
+	//end test
+	g_processor.writeOutput("end\n");
 
 })(g_request, g_response, g_processor);]]></script>
         <sys_class_name>sys_processor</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-02-15 19:45:07</sys_created_on>
         <sys_id>69e03f07db2f2300f0d2da75ca961950</sys_id>
-        <sys_mod_count>13</sys_mod_count>
+        <sys_mod_count>22</sys_mod_count>
         <sys_name>Slack Integration</sys_name>
         <sys_package display_value="Slack Integration" source="x_106096_slack_int">c886238fdbeb2300f0d2da75ca961943</sys_package>
         <sys_policy/>
         <sys_scope display_value="Slack Integration">c886238fdbeb2300f0d2da75ca961943</sys_scope>
         <sys_update_name>sys_processor_69e03f07db2f2300f0d2da75ca961950</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-02-15 23:18:12</sys_updated_on>
+        <sys_updated_on>2019-02-15 23:55:14</sys_updated_on>
         <type>script</type>
     </sys_processor>
 </record_update>
