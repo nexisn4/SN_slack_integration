@@ -4,50 +4,30 @@
         <class_name/>
         <description>Receives incoming POST from slack for slash commands.</description>
         <interactive>false</interactive>
-        <name>Slack Processor</name>
-        <parameters>p1</parameters>
-        <params_endpoint>x_106096_slack_int_p1</params_endpoint>
+        <name>Slack Integration</name>
+        <parameters/>
+        <params_endpoint/>
         <path>/slack/slash</path>
-        <path_endpoint/>
+        <path_endpoint>x_106096_slack_int_/slack/slash</path_endpoint>
         <require_csrf>false</require_csrf>
         <roles/>
         <script><![CDATA[(function process(g_request, g_response, g_processor) {
 
-	gs.log("slack method string: "+g_request.getMethod());
-	gs.log("slack query string: " + g_request.getQueryString());
-
-	var urlParamList = g_request.getParameterNames();
-	var paramMsg = ""; //we're going to log parameter log here
-	while(urlParamList.hasMoreElements()){
-		var param = urlParamList.nextElement();
-		var value = g_request.getParameter(param);
-		gs.log("slack Parameter: ["+param+"] has a value of: "+value+"\n");
-	}
-
-	var urlheaderList = g_request.getHeaderNames();
-	var headerMsg = ""; //we're going to log Header log here
-	while(urlheaderList.hasMoreElements()){
-		var header = urlheaderList.nextElement();
-		var headerValue = g_request.getHeader(header);
-		gs.log("slack Header: ["+header+"] has a value of: "+headerValue+"\n");
-	}
-	
-	// Add your code here
-	g_response.setStatus(200);
+	g_processor.writeOutput("hello world");
 
 })(g_request, g_response, g_processor);]]></script>
         <sys_class_name>sys_processor</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-02-15 19:45:07</sys_created_on>
         <sys_id>69e03f07db2f2300f0d2da75ca961950</sys_id>
-        <sys_mod_count>1</sys_mod_count>
-        <sys_name>Slack Processor</sys_name>
+        <sys_mod_count>13</sys_mod_count>
+        <sys_name>Slack Integration</sys_name>
         <sys_package display_value="Slack Integration" source="x_106096_slack_int">c886238fdbeb2300f0d2da75ca961943</sys_package>
         <sys_policy/>
         <sys_scope display_value="Slack Integration">c886238fdbeb2300f0d2da75ca961943</sys_scope>
         <sys_update_name>sys_processor_69e03f07db2f2300f0d2da75ca961950</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-02-15 19:48:22</sys_updated_on>
+        <sys_updated_on>2019-02-15 23:18:12</sys_updated_on>
         <type>script</type>
     </sys_processor>
 </record_update>
