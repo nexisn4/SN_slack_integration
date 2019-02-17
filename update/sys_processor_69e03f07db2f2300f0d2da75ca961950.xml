@@ -12,65 +12,77 @@
         <require_csrf>false</require_csrf>
         <roles/>
         <script><![CDATA[(function process(g_request, g_response, g_processor) {
-	//simple test
+	//begin the processor
 	g_processor.writeOutput("begin\n\n");
-	
-	
+
 	//original initial setup - just logs
-// 	gs.info("slack slash command\nslack query string: " + g_request.getQueryString());
+	// 	gs.info("slack slash command\nslack query string: " + g_request.getQueryString());
 
 	var urlParamList = g_request.getParameterNames();
-	
+
 	//print parameters
-// 	for (var i = 0; i < urlParamList.length; i++){
-// 		var param = urlParamList[i];
-// 		var value = g_request.getParameter(urlParamList[i]);
-// 		g_processor.writeOutput(param + ": " + value + "\n");
-// 	}
-	
+	// 	for (var i = 0; i < urlParamList.length; i++){
+	// 		var param = urlParamList[i];
+	// 		var value = g_request.getParameter(urlParamList[i]);
+	// 		g_processor.writeOutput(param + ": " + value + "\n");
+	// 	}
+
 	//needs formatting
 	var inc = g_request.getParameter("text");
-	
+
 	var gr = new GlideRecord("incident");
 	gr.addQuery("number", inc);
 	gr.query();
-	if (gr.next()){
+	if (gr.next()) {
 		g_processor.writeOutput("inc found\n");
-		
-// 		for (var prop in gr) {
-// 			g_processor.writeOutput(prop + ":" + gr[prop] + "\n");
-// 		}
-		
-		var s2 = gr.assignment_group;
-		g_processor.writeOutput(s2 + "\n");
-		
-		var s1 = gr.short_description;
-		g_processor.writeOutput(s1 + "\n");
-		
-		
+
+		// print all fields of the record
+		// for (var prop in gr) {
+		// 	g_processor.writeOutput(prop + ":" + gr[prop] + "\n");
+		// }
+
+		// dot walking
+		var sd = gr.short_description;
+		g_processor.writeOutput(sd + "\n");
+
+		var dv = gr.getDisplayValue("assignment_group");
+		g_processor.writeOutput(dv + "\n");
+
 	} else {
 		g_processor.writeOutput("inc not found\n");
+
+		var new_inc = new GlideRecord("incident");
+		new_inc.initialize();
+		new_inc.short_description = "slack slash test";
+		new_inc.insert();
+
+		g_processor.writeOutput("new inc inserted\n");
+
+		var num = new_inc.number;
+		g_processor.writeOutput("number: " + num + "\n");
+
 	}
-	
+
 	// Add your code here
 	g_response.setStatus(200);
-	
+
 	//end test
 	g_processor.writeOutput("\n\nend");
 
-})(g_request, g_response, g_processor);]]></script>
+})(g_request, g_response, g_processor);
+]]></script>
         <sys_class_name>sys_processor</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-02-15 19:45:07</sys_created_on>
         <sys_id>69e03f07db2f2300f0d2da75ca961950</sys_id>
-        <sys_mod_count>28</sys_mod_count>
+        <sys_mod_count>31</sys_mod_count>
         <sys_name>Slack Integration</sys_name>
         <sys_package display_value="Slack Integration" source="x_106096_slack_int">c886238fdbeb2300f0d2da75ca961943</sys_package>
         <sys_policy/>
         <sys_scope display_value="Slack Integration">c886238fdbeb2300f0d2da75ca961943</sys_scope>
         <sys_update_name>sys_processor_69e03f07db2f2300f0d2da75ca961950</sys_update_name>
         <sys_updated_by>admin-nexisn4</sys_updated_by>
-        <sys_updated_on>2019-02-17 01:06:57</sys_updated_on>
+        <sys_updated_on>2019-02-17 01:39:47</sys_updated_on>
         <type>script</type>
     </sys_processor>
 </record_update>
